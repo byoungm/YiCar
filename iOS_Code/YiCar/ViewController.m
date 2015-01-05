@@ -8,10 +8,13 @@
 
 #import "ViewController.h"
 #import "BLE.h"
+#include "ETJoyStickSlider.h"
+#include "RBLDetailViewController.h"
 
-@interface ViewController () <BLEDelegate>
-@property (strong, nonatomic) BLE *ble;
-
+@interface ViewController () <BLEDelegate, BLEFindViewControllerDelegate>
+@property (nonatomic) BLE *ble;
+@property (nonatomic) IBOutlet ETJoyStickSlider *joyStickVertical;
+@property (nonatomic) IBOutlet ETJoyStickSlider *joyStickHorizontal;
 @end
 
 @implementation ViewController
@@ -26,6 +29,9 @@
     [self.ble controlSetup];
     self.ble.delegate = self;
     
+    // Rotate the second joystick to be vertical
+    self.joyStickVertical.transform = CGAffineTransformMakeRotation(M_PI_2);
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,6 +40,25 @@
 }
 
 
+
+- (void)bleFindVC:(UIViewController *)vc finishedSearchWithPeripheral:(CBPeripheral *)selectedPeripheral
+{
+    if (selectedPeripheral)
+    {
+        [self.ble connectPeripheral:selectedPeripheral];
+    }
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"BLE_SEARCH"])
+    {
+        RBLDetailViewController *vc = segue.destinationViewController;
+        vc.ble = self.ble;
+        vc.delegate = self;
+    }
+}
 
 //// BLE WRITE DATA to serial
 // UInt8 buf[3] = {0x02, 0x00, 0x00};
