@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		439871851A58C72F00585873 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 439871831A58C72F00585873 /* BLE.m */; };
+		439871871A58C9BB00585873 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439871861A58C9BB00585873 /* CoreBluetooth.framework */; };
 		43DE7C8F1A58725100CF0386 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DE7C8E1A58725100CF0386 /* main.m */; };
 		43DE7C921A58725100CF0386 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DE7C911A58725100CF0386 /* AppDelegate.m */; };
 		43DE7C951A58725100CF0386 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DE7C941A58725100CF0386 /* ViewController.m */; };
@@ -27,6 +29,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		439871821A58C72F00585873 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLE.h; sourceTree = "<group>"; };
+		439871831A58C72F00585873 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
+		439871841A58C72F00585873 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
+		439871861A58C9BB00585873 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		43DE7C891A58725100CF0386 /* YiCar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YiCar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43DE7C8D1A58725100CF0386 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43DE7C8E1A58725100CF0386 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -47,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				439871871A58C9BB00585873 /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,10 +67,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		439871811A58C72F00585873 /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				439871821A58C72F00585873 /* BLE.h */,
+				439871831A58C72F00585873 /* BLE.m */,
+				439871841A58C72F00585873 /* BLEDefines.h */,
+			);
+			name = BLE;
+			path = YiCar/BLE;
+			sourceTree = "<group>";
+		};
+		439871881A58C9D700585873 /* FrameWorks */ = {
+			isa = PBXGroup;
+			children = (
+				439871811A58C72F00585873 /* BLE */,
+				439871861A58C9BB00585873 /* CoreBluetooth.framework */,
+			);
+			name = FrameWorks;
+			sourceTree = "<group>";
+		};
 		43DE7C801A58725100CF0386 = {
 			isa = PBXGroup;
 			children = (
 				43DE7C8B1A58725100CF0386 /* YiCar */,
+				439871881A58C9D700585873 /* FrameWorks */,
 				43DE7CA51A58725100CF0386 /* YiCarTests */,
 				43DE7C8A1A58725100CF0386 /* Products */,
 			);
@@ -168,6 +196,7 @@
 				TargetAttributes = {
 					43DE7C881A58725100CF0386 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = LY3KT5M7GY;
 					};
 					43DE7CA11A58725100CF0386 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -222,6 +251,7 @@
 				43DE7C951A58725100CF0386 /* ViewController.m in Sources */,
 				43DE7C921A58725100CF0386 /* AppDelegate.m in Sources */,
 				43DE7C8F1A58725100CF0386 /* main.m in Sources */,
+				439871851A58C72F00585873 /* BLE.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +444,7 @@
 				43DE7CAE1A58725100CF0386 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		43DE7CAF1A58725100CF0386 /* Build configuration list for PBXNativeTarget "YiCarTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +453,7 @@
 				43DE7CB11A58725100CF0386 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -14,3 +14,11 @@ int main(int argc, char * argv[]) {
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }
+
+
+// Xcode Setup Stepts
+/*
+ 1. Add CoreBluetooth Framework
+ 
+ 
+*/
