@@ -8,9 +8,6 @@
 #ifndef MAIN_H
 #define	MAIN_H
 
-#endif	/* MAIN_H */
-
-
 // CONFIG1H
 #pragma config OSC = INTIO7     // Oscillator Selection bits (Internal oscillator block, CLKOUT function on RA6, port function on RA7)
 #pragma config FCMEN = OFF      // Fail-Safe Clock Monitor Enable bit (Fail-Safe Clock Monitor disabled)
@@ -65,4 +62,9 @@
 
 // CONFIG7H
 #pragma config EBTRB = OFF      // Boot Block Table Read Protection bit (Boot Block (000000-0007FFh) not protected from table reads executed in other blocks)
+
+#endif	/* MAIN_H */
+
+
+
 
