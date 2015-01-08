@@ -9,6 +9,7 @@
 #include "stdincludes.h"
 #include "lcd.h"
 #include "interrupt.h"
+#include "motorControl.h"
 
 
 // Function Declarations
@@ -24,7 +25,10 @@ void main() {
 
     mcu_init();
     lcd_initDisplay();
+    motorControl_init();
 
+    motorControl_setLeftDutyCycle(20);
+    motorControl_setRightDutyCycle(200);
 
     sprintf(usartString,"Number:%d",5);
     putsUSART(usartString); //Delay10KTCYx(7) ???
@@ -42,6 +46,8 @@ void main() {
         getsUSART(rx,3);
         sprintf(usartString,"%02x,%02x,%02x",rx[0],rx[1],rx[2]);
         lcd_writeLine(usartString, 1);
+        //motorControl_setLeftDutyCycle(value);
+        //motorControl_setRightDutyCycle(value);
     }
 
     CloseUSART();
