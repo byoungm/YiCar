@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ETJoyStickSlider : UISlider
 
+@interface ETJoyStick : UIControl
+
+@property (nonatomic, readonly) CGPoint value;
 
 @end

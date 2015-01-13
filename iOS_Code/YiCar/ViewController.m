@@ -8,13 +8,18 @@
 
 #import "ViewController.h"
 #import "BLE.h"
-#include "ETJoyStickSlider.h"
+#include "ETJoyStick.h"
 #include "RBLDetailViewController.h"
+
+
+#define SEND_MOTOR_CONTROLS_TIME_INTERVAL_IN_SEC .25
 
 @interface ViewController () <BLEDelegate, BLEFindViewControllerDelegate>
 @property (nonatomic) BLE *ble;
-@property (nonatomic) IBOutlet ETJoyStickSlider *joyStickVertical;
-@property (nonatomic) IBOutlet ETJoyStickSlider *joyStickHorizontal;
+@property (nonatomic) NSTimer *sendMotorControlsTimer;
+// Interface
+@property (nonatomic, weak) IBOutlet ETJoyStick *joyStick;
+@property (nonatomic, weak) IBOutlet UILabel *deviceIDLabel;
 @end
 
 @implementation ViewController
@@ -29,8 +34,10 @@
     [self.ble controlSetup];
     self.ble.delegate = self;
     
+    
     // Rotate the second joystick to be vertical
-    self.joyStickVertical.transform = CGAffineTransformMakeRotation(M_PI_2);
+    //self.joyStickVertical.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    //self.joyStickHorizontal.transform = CGAffineTransformMakeRotation(-M_PI_2);
     
 }
 
@@ -60,17 +67,41 @@
     }
 }
 
-//// BLE WRITE DATA to serial
-// UInt8 buf[3] = {0x02, 0x00, 0x00};
-// 
-// NSData *data = [[NSData alloc] initWithBytes:buf length:3];
-// [ble write:data];
+- (void)sendMotorControls
+{
+    UInt8 leftFB = (self.joyStick.value.y > 0) ? 0xF0 : 0x00;
+    UInt8 rightFB = (self.joyStick.value.x > 0) ? 0x0F : 0x00;
+    UInt8 leftMotorPWM = (char)abs(255*self.joyStick.value.y);
+    UInt8 rightMotorPWM = (char)abs(255*self.joyStick.value.x);
+    
+    NSLog(@"%d,%d",leftMotorPWM,rightMotorPWM);
+    // send serial data
+    UInt8 buffer[4] = {'M',(leftFB | rightFB),leftMotorPWM,rightMotorPWM};
+    NSData *data = [[NSData alloc] initWithBytes:buffer length:4];
+    [self.ble write:data];
+}
+
 
 #pragma mark - BLE Delegate
+
+-(void) bleDidConnect
+{
+    NSLog(@"->Connected");
+    self.deviceIDLabel.text = [NSString stringWithFormat:@"%@", self.ble.activePeripheral.identifier];
+    
+    self.sendMotorControlsTimer  = [NSTimer scheduledTimerWithTimeInterval:SEND_MOTOR_CONTROLS_TIME_INTERVAL_IN_SEC
+                                                                    target:self
+                                                                  selector:@selector(sendMotorControls)
+                                                                  userInfo:nil
+                                                                   repeats:YES];
+    
+}
 
 - (void)bleDidDisconnect
 {
     NSLog(@"->Disconnected");
+    self.deviceIDLabel.text = @"NO DEVICE CONNECTED";
+    [self.sendMotorControlsTimer invalidate];
     
 
 }
@@ -78,12 +109,6 @@
 // When RSSI is changed, this will be called
 
 
-// When disconnected, this will be called
--(void) bleDidConnect
-{
-    NSLog(@"->Connected");
-    
-}
 
 // When data is comming, this will be called
 -(void) bleDidReceiveData:(unsigned char *)data length:(int)length

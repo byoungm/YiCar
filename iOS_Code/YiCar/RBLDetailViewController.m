@@ -66,7 +66,6 @@
 # pragma mark - BLE Find Devices
 
 - (void)searchForDevices{
-    [self.bleDevices addObject:@"Test"];
     
     if (self.ble.activePeripheral)
     {

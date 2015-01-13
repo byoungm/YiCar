@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		439871851A58C72F00585873 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 439871831A58C72F00585873 /* BLE.m */; };
 		439871871A58C9BB00585873 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 439871861A58C9BB00585873 /* CoreBluetooth.framework */; };
-		4398718B1A5AB29100585873 /* ETJoyStickSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398718A1A5AB29100585873 /* ETJoyStickSlider.m */; };
+		4398718B1A5AB29100585873 /* ETJoyStick.m in Sources */ = {isa = PBXBuildFile; fileRef = 4398718A1A5AB29100585873 /* ETJoyStick.m */; };
 		439871911A5AD2E900585873 /* RBLDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 439871901A5AD2E900585873 /* RBLDetailViewController.m */; };
 		43DE7C8F1A58725100CF0386 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DE7C8E1A58725100CF0386 /* main.m */; };
 		43DE7C921A58725100CF0386 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 43DE7C911A58725100CF0386 /* AppDelegate.m */; };
@@ -35,8 +35,8 @@
 		439871831A58C72F00585873 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLE.m; sourceTree = "<group>"; };
 		439871841A58C72F00585873 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEDefines.h; sourceTree = "<group>"; };
 		439871861A58C9BB00585873 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		439871891A5AB29100585873 /* ETJoyStickSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETJoyStickSlider.h; sourceTree = "<group>"; };
-		4398718A1A5AB29100585873 /* ETJoyStickSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETJoyStickSlider.m; sourceTree = "<group>"; };
+		439871891A5AB29100585873 /* ETJoyStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETJoyStick.h; sourceTree = "<group>"; };
+		4398718A1A5AB29100585873 /* ETJoyStick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETJoyStick.m; sourceTree = "<group>"; };
 		4398718F1A5AD2B000585873 /* RBLDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBLDetailViewController.h; sourceTree = "<group>"; };
 		439871901A5AD2E900585873 /* RBLDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLDetailViewController.m; sourceTree = "<group>"; };
 		43DE7C891A58725100CF0386 /* YiCar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YiCar.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,8 +121,8 @@
 				43DE7C941A58725100CF0386 /* ViewController.m */,
 				4398718F1A5AD2B000585873 /* RBLDetailViewController.h */,
 				439871901A5AD2E900585873 /* RBLDetailViewController.m */,
-				439871891A5AB29100585873 /* ETJoyStickSlider.h */,
-				4398718A1A5AB29100585873 /* ETJoyStickSlider.m */,
+				439871891A5AB29100585873 /* ETJoyStick.h */,
+				4398718A1A5AB29100585873 /* ETJoyStick.m */,
 				43DE7C961A58725100CF0386 /* Main.storyboard */,
 				43DE7C991A58725100CF0386 /* Images.xcassets */,
 				43DE7C9B1A58725100CF0386 /* LaunchScreen.xib */,
@@ -261,7 +261,7 @@
 				43DE7C951A58725100CF0386 /* ViewController.m in Sources */,
 				43DE7C921A58725100CF0386 /* AppDelegate.m in Sources */,
 				43DE7C8F1A58725100CF0386 /* main.m in Sources */,
-				4398718B1A5AB29100585873 /* ETJoyStickSlider.m in Sources */,
+				4398718B1A5AB29100585873 /* ETJoyStick.m in Sources */,
 				439871911A5AD2E900585873 /* RBLDetailViewController.m in Sources */,
 				439871851A58C72F00585873 /* BLE.m in Sources */,
 			);

@@ -7,7 +7,6 @@
 
 #include "main.h"
 #include "stdincludes.h"
-#include "lcd.h"
 #include "interrupt.h"
 #include "motorControl.h"
 
@@ -21,17 +20,12 @@ char usartString[20];
 
 
 void main() {
-    UINT8 rx[3];
+    UINT8 rx[4];
 
     mcu_init();
-    lcd_initDisplay();
     motorControl_init();
 
-    motorControl_setLeftDutyCycle(20);
-    motorControl_setRightDutyCycle(200);
 
-    sprintf(usartString,"Number:%d",5);
-    putsUSART(usartString); //Delay10KTCYx(7) ???
 
     while(1)
     {
@@ -43,11 +37,12 @@ void main() {
         putsUSART(usartString);
 
         while(!DataRdyUSART());// Wait for data to be received
-        getsUSART(rx,3);
-        sprintf(usartString,"%02x,%02x,%02x",rx[0],rx[1],rx[2]);
-        lcd_writeLine(usartString, 1);
-        //motorControl_setLeftDutyCycle(value);
-        //motorControl_setRightDutyCycle(value);
+        getsUSART(rx,4);
+        if ( rx[0] == 'M') // If motor control command
+        {
+            motorControl_setLeftMotorPWM_MODE(rx[2], rx[1] & 0xF0 );
+            motorControl_setRightMotorPWM_MODE(rx[3], rx[1] & 0x0F );
+        }
     }
 
     CloseUSART();
