@@ -69,10 +69,11 @@
 
 - (void)sendMotorControls
 {
-    UInt8 leftFB = (self.joyStick.value.y > 0) ? 0xF0 : 0x00;
-    UInt8 rightFB = (self.joyStick.value.x > 0) ? 0x0F : 0x00;
-    UInt8 leftMotorPWM = (char)abs(255*self.joyStick.value.y);
-    UInt8 rightMotorPWM = (char)abs(255*self.joyStick.value.x);
+    MotorValue_t m = self.joyStick.motorValues;
+    UInt8 leftFB = ( m.leftForward ) ? 0xF0 : 0x00;
+    UInt8 rightFB = ( m.rightForward ) ? 0x0F : 0x00;
+    UInt8 leftMotorPWM = (char)(255 * m.leftPowerPercent );
+    UInt8 rightMotorPWM = (char)(255 * m.rightPowerPercent );
     
     NSLog(@"%d,%d",leftMotorPWM,rightMotorPWM);
     // send serial data

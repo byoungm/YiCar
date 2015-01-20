@@ -55,7 +55,17 @@ void motorControl_TMR0Interrupt()
 void motorControl_setLeftMotorPWM_MODE(UINT8 pwm, UINT8 mode)
 {
     CCPR1L = pwm;
-
+    if (pwm & 0x80)
+    {
+        CCP1CONbits.DC1B0 = 1; // Bit 0 PWM
+        CCP1CONbits.DC1B1 = 1; // Bit 1 PWM
+    }
+    else
+    {
+        CCP1CONbits.DC1B0 = 0;
+        CCP1CONbits.DC1B1 = 0;
+    }
+    
     if (mode == 0x00)
     {
         // Backwards
@@ -73,6 +83,16 @@ void motorControl_setLeftMotorPWM_MODE(UINT8 pwm, UINT8 mode)
 void motorControl_setRightMotorPWM_MODE(UINT8 pwm, UINT8 mode)
 {
     CCPR2L = pwm;
+    if (pwm & 0x80)
+    {
+        CCP2CONbits.DC2B0 = 1; // Bit 0 PWM
+        CCP2CONbits.DC2B1 = 1; // Bit 1 PWM
+    }
+    else
+    {
+        CCP2CONbits.DC2B0 = 0;
+        CCP2CONbits.DC2B1 = 0;
+    }
 
     if (mode == 0x00)
     {

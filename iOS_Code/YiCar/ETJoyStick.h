@@ -11,6 +11,15 @@
 
 @interface ETJoyStick : UIControl
 
+typedef struct
+{
+    BOOL leftForward;
+    BOOL rightForward;
+    float leftPowerPercent;
+    float rightPowerPercent;
+}MotorValue_t;
+
 @property (nonatomic, readonly) CGPoint value;
+@property (nonatomic, readonly) MotorValue_t motorValues;
 
 @end
