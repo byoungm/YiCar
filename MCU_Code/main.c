@@ -12,15 +12,50 @@
 
 
 // Function Declarations
-void mcu_init();
+void mcu_init(void);
 void usartSendString(char* text);
 
 // Global Variables
 char usartString[20];
 
+typedef union 
+{
+    UINT8 all;
+    struct 
+    {
+        UINT8 cmd            :1;
+        UINT8 leftDirection  :1;
+        UINT8 leftPower      :1;
+        UINT8 rightDirection :1;
+        UINT8 rightPower     :1;
+        UINT8 pad            :3;
+
+    }bits;
+}DataTransferParity_t;
+
+typedef struct
+{
+    UINT8 all;
+    struct 
+    {
+        UINT8 left  :4;
+        UINT8 right :4;
+    }bits;
+}MotorDirection_t;
+
+struct 
+{
+    UINT8 cmd;
+    MotorDirection_t motorDirections;
+    UINT8 leftPower;
+    UINT8 rightPower;
+    DataTransferParity_t parity;
+    
+}dataTransfer;
+
 
 void main() {
-    UINT8 rx[4];
+    UINT8 rx[6];
 
     mcu_init();
     motorControl_init();
@@ -37,11 +72,12 @@ void main() {
         putsUSART(usartString);
 
         while(!DataRdyUSART());// Wait for data to be received
-        getsUSART(rx,4);
-        if ( rx[0] == 'M') // If motor control command
+        getsUSART(rx,6);
+        memcpy(&dataTransfer, rx, sizeof(dataTransfer));
+        if ( dataTransfer.cmd == 'M') // If motor control command
         {
-            motorControl_setLeftMotorPWM_MODE(rx[2], rx[1] & 0xF0 );
-            motorControl_setRightMotorPWM_MODE(rx[3], rx[1] & 0x0F );
+            motorControl_setLeftMotorPWM_MODE(dataTransfer.leftPower, dataTransfer.motorDirections.left );
+            motorControl_setRightMotorPWM_MODE(dataTransfer.rightPower, dataTransfer.motorDirections.right );
         }
     }
 
