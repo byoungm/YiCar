@@ -12,7 +12,8 @@
 #include "RBLDetailViewController.h"
 
 
-#define SEND_MOTOR_CONTROLS_TIME_INTERVAL_IN_SEC .25
+#define SEND_MOTOR_CONTROLS_TIME_INTERVAL_IN_SEC .10 // Every 10 seconds
+
 
 @interface ViewController () <BLEDelegate, BLEFindViewControllerDelegate>
 @property (nonatomic) BLE *ble;
@@ -20,6 +21,10 @@
 // Interface
 @property (nonatomic, weak) IBOutlet ETJoyStick *joyStick;
 @property (nonatomic, weak) IBOutlet UILabel *deviceIDLabel;
+
+// Temp Sliders
+@property (nonatomic, weak) IBOutlet UISlider *sliderUD;
+@property (nonatomic, weak) IBOutlet UISlider *sliderLR;
 @end
 
 @implementation ViewController
@@ -36,7 +41,7 @@
     
     
     // Rotate the second joystick to be vertical
-    //self.joyStickVertical.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    self.sliderUD.transform = CGAffineTransformMakeRotation(-M_PI_2);
     //self.joyStickHorizontal.transform = CGAffineTransformMakeRotation(-M_PI_2);
     
 }
@@ -69,16 +74,24 @@
 
 - (void)sendMotorControls
 {
-    MotorValue_t m = self.joyStick.motorValues;
+    /*MotorValue_t m = self.joyStick.motorValues;
     UInt8 leftFB = ( m.leftForward ) ? 0xF0 : 0x00;
     UInt8 rightFB = ( m.rightForward ) ? 0x0F : 0x00;
     UInt8 leftMotorPWM = (char)(255 * m.leftPowerPercent );
     UInt8 rightMotorPWM = (char)(255 * m.rightPowerPercent );
+     */
+    DataTransfer_t dataTransfer;
     
-    NSLog(@"%d,%d",leftMotorPWM,rightMotorPWM);
+    // Temp 2 Sliders
+    dataTransfer.cmd = 'M';
+    dataTransfer.motorDirections.bits.left = ( self.sliderLR.value > 0 ) ? 0xF0 : 0x00;
+    dataTransfer.motorDirections.bits.right = ( self.sliderUD.value > 0 ) ? 0x0F : 0x00;
+    dataTransfer.leftPower = (char) fabsf(self.sliderLR.value);
+    dataTransfer.rightPower = (char) fabsf(self.sliderUD.value);
+    
     // send serial data
-    UInt8 buffer[4] = {'M',(leftFB | rightFB),leftMotorPWM,rightMotorPWM};
-    NSData *data = [[NSData alloc] initWithBytes:buffer length:4];
+    //UInt8 buffer[4] = {'M',(leftFB | rightFB),leftMotorPWM,rightMotorPWM};
+    NSData *data = [[NSData alloc] initWithBytes:&dataTransfer length:4];
     [self.ble write:data];
 }
 
@@ -88,8 +101,8 @@
 -(void) bleDidConnect
 {
     NSLog(@"->Connected");
-    self.deviceIDLabel.text = [NSString stringWithFormat:@"%@", self.ble.activePeripheral.identifier];
-    
+    self.deviceIDLabel.text = self.ble.activePeripheral.identifier.UUIDString;
+    NSLog(@"%@",self.ble.activePeripheral.identifier);
     self.sendMotorControlsTimer  = [NSTimer scheduledTimerWithTimeInterval:SEND_MOTOR_CONTROLS_TIME_INTERVAL_IN_SEC
                                                                     target:self
                                                                   selector:@selector(sendMotorControls)
@@ -101,7 +114,7 @@
 - (void)bleDidDisconnect
 {
     NSLog(@"->Disconnected");
-    self.deviceIDLabel.text = @"NO DEVICE CONNECTED";
+    self.deviceIDLabel.text = @"NO YiCar CONNECTED";
     [self.sendMotorControlsTimer invalidate];
     
 

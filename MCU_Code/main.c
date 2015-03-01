@@ -76,8 +76,8 @@ void main() {
         memcpy(&dataTransfer, rx, sizeof(dataTransfer));
         if ( dataTransfer.cmd == 'M') // If motor control command
         {
-            motorControl_setLeftMotorPWM_MODE(dataTransfer.leftPower, dataTransfer.motorDirections.left );
-            motorControl_setRightMotorPWM_MODE(dataTransfer.rightPower, dataTransfer.motorDirections.right );
+            motorControl_setLeftMotorPWM_MODE(dataTransfer.leftPower, dataTransfer.motorDirections.bits.left );
+            motorControl_setRightMotorPWM_MODE(dataTransfer.rightPower, dataTransfer.motorDirections.bits.right );
         }
     }
 

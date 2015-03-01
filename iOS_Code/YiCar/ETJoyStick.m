@@ -152,12 +152,14 @@ typedef struct
     [self.touch1BP stroke];
     
     // For Debugging
+    /*
     NSString *str = [NSString stringWithFormat:@"X: %3.1f, Y: %3.1f", self.value.x, self.value.y];
-    [str drawAtPoint:CGPointZero withAttributes:nil];
-    MotorValue_t m = self.motorValues;
-    NSString *str2 = [NSString stringWithFormat:@"L_FB: %d R_FB: %d L: %2.2f, R: %2.2f", m.leftForward,m.rightForward,
+    //[str drawAtPoint:CGPointZero withAttributes:nil];
+    //MotorValue_t m = self.motorValues;
+    //NSString *str2 = [NSString stringWithFormat:@"L_FB: %d R_FB: %d L: %2.2f, R: %2.2f", m.leftForward,m.rightForward,
                                                                                         m.leftPowerPercent,m.rightPowerPercent];
     [str2 drawAtPoint:CGPointMake(0, 20) withAttributes:nil];
+    */
 }
 
 
